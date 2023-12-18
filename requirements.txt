@@ -1,0 +1,8 @@
+opencv-python
+imageai
+moviepy
+pandas
+nltk
+spacy
+youtube-dl
+google-api-python-client
