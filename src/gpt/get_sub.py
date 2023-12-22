@@ -55,7 +55,7 @@ def main():
     video = VideoFileClip(video_path)
     video.audio.write_audiofile(audio_path)
 
-    leopard = pvleopard.create(access_key='5PkZ28yyTh8ydGnkeF3AWBWmYcN7WWih6gP7s1WGuGiCpqpVBrdXQQ==')
+    leopard = pvleopard.create(access_key='')
     transcript, words = leopard.process_file('audio.wav')
     with open('srt.txt', 'w') as f:
         f.write(to_srt(words))
