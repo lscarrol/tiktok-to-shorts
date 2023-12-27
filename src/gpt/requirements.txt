@@ -1,0 +1,8 @@
+pvleopard==1.1.0
+ffmpeg-python==0.2.0
+os==0.1.5
+pysrt==1.1.0
+moviepy==1.0.3
+typing==3.7.4.3
+dotenv==0.19.1
+google-cloud-storage==1.42.3

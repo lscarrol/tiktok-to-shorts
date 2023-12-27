@@ -1,11 +1,15 @@
-from moviepy.editor import VideoFileClip, TextClip, CompositeVideoClip
 import pvleopard
-from typing import Sequence, Optional
-from dotenv import load_dotenv
+import ffmpeg
 import os
 import pysrt
+import moviepy.video.fx.all as vfx
 
+from moviepy.editor import *
+from moviepy.video.io.ffmpeg_tools import ffmpeg_extract_subclip
+from typing import Sequence, Optional
+from dotenv import load_dotenv
 
+# Load access jey fir pvleopard
 load_dotenv()
 access_key = os.getenv("ACCESS_KEY")
 
@@ -80,7 +84,6 @@ def to_srt(
 
 
 
-
 def main():
     video_path = '../videos/video.mp4'
     audio_path = 'audio.wav'
@@ -110,6 +113,29 @@ def main():
 
     # Write output video file
     final_video.write_videofile(output_video_file)
+    clip1 = VideoFileClip('video_out_subtitled.mp4')
+    width, height_final = clip1.size
+    ffmpeg_extract_subclip('../videos/sunset.mp4', 0.0, clip1.duration, targetname="passvideo.mp4")
+    audio_background = AudioFileClip('music.mp3')
+    clip1 = clip1.fx(vfx.crop, x1=0, y1=0, x2=1080, y2=1080)
+    #crop(clip1, x1=0, y1=0, x2=1080, y2=1080)
+    audio_background = audio_background.volumex(0.3)
+    clip2 = VideoFileClip("passvideo.mp4")
+    width2, height2 = clip2.size
+    # clip3 = clip2.resize(width=width)
+    #crop(clip3, x1=0, y1=0, x2=1080, y2=1080)
+    clip2 = clip2.fx(vfx.crop, x1=0, y1=0, x2=1080, y2=840)
+    final_audio = CompositeAudioClip([clip1.audio, audio_background])
+    fc = clip1.set_audio(final_audio)
+    fc2 = clip2.without_audio()
+    
+    
+    final_clip = clips_array([[fc], [fc2]])
+    #finalresize = final_clip.resize(height=height_final)
+    print(final_clip.size)
+    final_clip.write_videofile('output.mp4')
+
+
 
 if __name__ == "__main__":
     main()
