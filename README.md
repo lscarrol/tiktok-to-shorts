@@ -1,5 +1,7 @@
 # TikTok to YouTube Shorts Automation
 
+WORK IN PROGRESS
+
 ## Overview
 This project automates the process of identifying popular TikTok videos, downloading them, generating autogenrated commentary, and posting them on YouTube Shorts. The entire workflow is orchestrated using serverless GCP services including Cloud Functions, Cloud Run, and Pub/Sub.
 
